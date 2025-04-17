@@ -227,7 +227,12 @@ def float8_view(aten_op, args, kwargs=None):
     )
 
 
-@implements([aten.split.Tensor])
+@implements(
+    [
+        aten.split.Tensor,
+        aten.chunk.default,
+    ]
+)
 def float8_split(aten_op, args, kwargs=None):
     new_data_tensors = aten_op(args[0]._data, *args[1:], **kwargs)
     _assert_tensorwise_scale(aten_op, args[0]._scale)
